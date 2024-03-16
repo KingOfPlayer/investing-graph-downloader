@@ -13,7 +13,8 @@ Its userscript. It need extension "Tampermonkey".
 	[ 
 		Int Time(Second Type Epoch Time),
 		Int Volume,
-		float Open,float High,
+		float Open,
+		float High,
 		loat Low,
 		float Close
 	],
