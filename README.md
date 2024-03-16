@@ -15,7 +15,7 @@ Its userscript. It need extension "Tampermonkey".
 		Int Volume,
 		float Open,
 		float High,
-		loat Low,
+		float Low,
 		float Close
 	],
 	...
