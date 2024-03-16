@@ -68,8 +68,7 @@
 
         if(window.downloadReady == true){
             window.mode = window.opts.firstChild.firstChild.getElementsByClassName("selected")[0].innerHTML;
-            alert("OK");
-            //window.getData();
+            window.getData();
         }
     };
 
