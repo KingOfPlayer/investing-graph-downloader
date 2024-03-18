@@ -1,6 +1,6 @@
 # investing-graph-downloader
 
-This repo aims to generate stock market data set (OHLC data).
+This repo aims to generate stock market data set from investing.com (OHLC data).
 
 ## Install
 
@@ -11,8 +11,8 @@ Its userscript. It need extension "Tampermonkey".
 ```
 [
 	[ 
-		Int Time(Second Type Epoch Time),
-		Int Volume,
+		int Time(Second Type Epoch Time),
+		int Volume,
 		float Open,
 		float High,
 		float Low,
