@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         investing-graph-downloader
 // @namespace    https://github.com/KingOfPlayer/investing-graph-downloader
-// @version      0.1.2
+// @version      0.1.3
 // @description  Download Data From Graph
 // @author       https://github.com/KingOfPlayer
 // @match        *://*.investing.com/*/index*-prod.html*
