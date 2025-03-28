@@ -4,7 +4,7 @@
 // @version      0.1.2
 // @description  Download Data From Graph
 // @author       https://github.com/KingOfPlayer
-// @match        *://*.investing.com/*/index60-prod.html*
+// @match        *://*.investing.com/*/index*-prod.html*
 // @grant        none
 // ==/UserScript==
 
