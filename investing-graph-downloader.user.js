@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         investing-graph-downloader
 // @namespace    https://github.com/KingOfPlayer/investing-graph-downloader
-// @version      0.1.3
+// @version      0.1.4
 // @description  Download Data From Graph
 // @author       https://github.com/KingOfPlayer
 // @match        *://*.investing.com/*/index*-prod.html*
@@ -54,8 +54,8 @@
     };
 
     window.startDownload = function () {
-        window.dateStart = Math.round(new Date(window.opts.firstChild.firstChild.getElementsByClassName("Start")[0].value).getTime() / 1000);
-        window.dateEnd = Math.round(new Date(window.opts.firstChild.firstChild.getElementsByClassName("End")[0].value).getTime() / 1000);
+        window.dateStart = Math.round(new Date(window.intervalStartDate.firstChild.firstChild.getElementsByClassName("Start")[0].value).getTime() / 1000);
+        window.dateEnd = Math.round(new Date(window.intervalEndDate.firstChild.firstChild.getElementsByClassName("End")[0].value).getTime() / 1000);
 
         if (window.dateStart > window.dateEnd) {
             alert("End Date cannot behind start date");
@@ -69,7 +69,7 @@
 
         if (window.downloadReady == true) {
             window.downloadReady = false;
-            window.mode = window.opts.firstChild.firstChild.getElementsByClassName("selected")[0].innerHTML;
+            window.mode = window.intervalOpts.firstChild.firstChild.getElementsByClassName("selected")[0].innerHTML;
             window.getData();
             window.setTextDownloadButton("Downloading");
         }
@@ -109,7 +109,7 @@
     };
 
     window.selectOp = function (e) {
-        window.opts.firstChild.firstChild.getElementsByClassName("selected")[0].classList.remove("selected");
+        window.intervalOpts.firstChild.firstChild.getElementsByClassName("selected")[0].classList.remove("selected");
         e.srcElement.classList.add("selected");
     };
 
@@ -123,9 +123,10 @@
         window.chart.contentDocument.getElementsByClassName("tv-close-panel top")[0].click();
         window.bar = window.chart.contentDocument.getElementsByClassName("left")[0];
 
-        window.opts = document.createElement("div");
-        window.opts.className = "group space-single header-group-intervals";
-        window.opts.innerHTML = '<div class="intervals-container favored-list-container no-first">'
+        // Interval Options
+        window.intervalOpts = document.createElement("div");
+        window.intervalOpts.className = "group space-single header-group-intervals";
+        window.intervalOpts.innerHTML = '<div class="intervals-container favored-list-container no-first">'
             + '<div class="quick">'
             + '<span class="apply-common-tooltip op">5</span>'
             + '<span class="apply-common-tooltip op">15</span>'
@@ -135,19 +136,49 @@
             + '<span class="apply-common-tooltip op selected">D</span>'
             + '<span class="apply-common-tooltip op">W</span>'
             + '<span class="apply-common-tooltip op">M</span>'
-            + '<input class="apply-common-tooltip symbol-edit Start" style="width: 13rem;float: none;" type="datetime-local" value="' + new Date().toISOString().slice(0, -5) + '">'
-            + '<input class="apply-common-tooltip symbol-edit End" style="width: 13rem;float: none;" type="datetime-local" value="' + new Date().toISOString().slice(0, -5) + '">'
+            + '</div>'
+            + '</div>';
+
+        // Date Time Options
+        // Start Date & End Date
+        window.intervalStartDate = document.createElement("div");
+        window.intervalStartDate.className = "group space-single header-group-intervals";
+        window.intervalStartDate.innerHTML = '<div class="intervals-container favored-list-container no-first">'
+            + '<div class="intervals-container favored-list-container no-first">'
+            + '<span>Start Date</span>'
+            + '<input class="apply-common-tooltip symbol-edit Start" style="width: 17rem;float: none;" type="datetime-local" value="' + new Date().toISOString().slice(0, -5) + '">'
+            + '</div>'
+            + '</div>';
+
+        window.intervalEndDate = document.createElement("div");
+        window.intervalEndDate.className = "group space-single header-group-intervals";
+        window.intervalEndDate.innerHTML = '<div class="intervals-container favored-list-container no-first">'
+            + '<div class="intervals-container favored-list-container no-first">'
+            +'<span>End Date</span>'
+            + '<input class="apply-common-tooltip symbol-edit End" style="width: 17rem;float: none;" type="datetime-local" value="' + new Date().toISOString().slice(0, -5) + '">'
+            + '</div>'
+            + '</div>';
+
+        // Download Button
+        window.opeations = document.createElement("div");
+        window.opeations.className = "group space-single header-group-intervals";
+        window.opeations.innerHTML = '<div class="intervals-container favored-list-container no-first">'
+            + '<div class="intervals-container space-single">'
             + '<span class="apply-common-tooltip download">Download</span>'
             + '</div>'
             + '</div>';
-        window.bar.appendChild(window.opts);
 
-        let ops = window.opts.firstChild.firstChild.getElementsByClassName("op");
+        window.bar.appendChild(window.intervalOpts);
+        window.bar.appendChild(window.intervalStartDate);
+        window.bar.appendChild(window.intervalEndDate);
+        window.bar.appendChild(window.opeations);
+
+        let ops = window.intervalOpts.firstChild.firstChild.getElementsByClassName("op");
         for (let i = 0; i < ops.length; i++) {
             ops[i].addEventListener("click", window.selectOp);
         }
 
-        window.downloadButton = window.opts.firstChild.firstChild.getElementsByClassName("download")[0];
+        window.downloadButton = window.opeations.firstChild.firstChild.getElementsByClassName("download")[0];
         window.downloadButton.addEventListener("click", window.startDownload);
         window.chart.contentDocument.getElementsByClassName("tv-close-panel bottom")[0].click();
 

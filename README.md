@@ -28,3 +28,6 @@ Url form must be this `https://www.investing.com/*/*-chart`
 	...
 ]
 ```
+
+## Screenshot
+![Screenshot](ss.png)
